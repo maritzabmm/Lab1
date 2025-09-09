@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'task2_pc'
+package_name = 'task2'
 
 setup(
     name=package_name,
@@ -20,8 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'publisher = task2_pc.publisher:main',
-            'subscriber = task2_pc.subscriber:main',
+            'publisher = task2.publisher:main',
+            'subscriber = task2.subscriber:main',
         ],
     },
 )
