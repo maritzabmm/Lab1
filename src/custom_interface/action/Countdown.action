@@ -1,0 +1,8 @@
+#Goal
+int32 start_from
+---
+#Result
+string result_text
+---
+#Feedback
+int32 current
