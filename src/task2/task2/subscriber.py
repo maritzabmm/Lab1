@@ -1,6 +1,6 @@
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String
+from std_msgs.msg import String, Header
 from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy, HistoryPolicy
 from geometry_msgs.msg import PoseStamped, Point, Quaternion
 from custom_interface.msg import Person
@@ -29,7 +29,8 @@ class MinimalSubscriber(Node):
 
 
     def listener_callback(self, msg):
-        self.get_logger().info(f'Received: {msg.name} is {msg.age} years old. Student? {msg.is_student}')
+        self.get_logger().info(f'Received at {msg.time.stamp.sec}: \n' 
+                               f'{msg.name} is {msg.age} years old. Student? {msg.is_student}')
 
 def main(args=None):
     rclpy.init(args=args)

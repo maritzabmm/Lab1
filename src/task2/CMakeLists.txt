@@ -13,7 +13,7 @@ find_package(rosidl_default_generators REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(custom_interface REQUIRED)
 
-rosidl_generate_interfaces(${PROJECT_NAME} "msg/Person.msg")
+rosidl_generate_interfaces(${PROJECT_NAME} "msg/Person.msg" DEPENDENCIES std_msgs)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

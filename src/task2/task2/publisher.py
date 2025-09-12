@@ -1,6 +1,6 @@
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String
+from std_msgs.msg import String, Header
 from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy, HistoryPolicy
 from geometry_msgs.msg import PoseStamped, Point, Quaternion
 from custom_interface.msg import Person
@@ -34,6 +34,8 @@ class MinimalPublisher(Node):
 
     def timer_callback(self):
         msg = Person()
+        msg.time = Header()
+        msg.time.stamp = self.get_clock().now().to_msg()
         msg.name = "Susannah"
         msg.age = random.randint(1, 99)
         if msg.age <= 18 and msg.age >= 10:
@@ -42,7 +44,8 @@ class MinimalPublisher(Node):
             msg.is_student = False
 
         self.publisher_.publish(msg)
-        self.get_logger().info(f'Publishing: {msg.name}, age={msg.age}, Student? {msg.is_student}')
+        self.get_logger().info(f'Time: {msg.time.stamp.sec} \n'
+                               f'Publishing: {msg.name}, age={msg.age}, Student? {msg.is_student}')
         
         self.i += 1
         

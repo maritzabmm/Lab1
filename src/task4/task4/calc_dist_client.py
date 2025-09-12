@@ -7,8 +7,25 @@ from geometry_msgs.msg import Point
 
 class DistanceClientNode(Node):
 
-    def __init__(self, p1, p2):
+    def __init__(self):
         super().__init__('distance_client_node')
+        self.declare_parameters(
+            namespace='',
+            parameters=[
+                ('x1', 1.0),
+                ('y1', 1.0),
+                ('x2', 1.0),
+                ('y2', 1.0),
+            ])
+        
+        x1 = self.get_parameter('x1').value
+        y1 = self.get_parameter('y1').value
+        x2 = self.get_parameter('x2').value
+        y2 = self.get_parameter('y2').value
+
+        p1 = Point(x=x1, y=y1, z=0.0)
+        p2 = Point(x=x2, y=y2, z=0.0)
+        
         self.get_logger().info('Distance Client Python node has been created')
         self.call_distance_server(p1, p2)
 
@@ -36,25 +53,7 @@ class DistanceClientNode(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-
-    # Reading numbers from command line
-
-    if len(sys.argv) < 5:
-        print("Please try again with the following format - client x1 y1 x2 y2")
-        rclpy.shutdown()
-        return
-
-    try:
-        x1, y1, x2, y2 = map(float, sys.argv[1:5])
-    except ValueError:
-        print("Error! Try again with numbers (float).")
-        rclpy.shutdown()
-        return
-
-    p1 = Point(x=x1, y=y1, z=0.0)
-    p2 = Point(x=x2, y=y2, z=0.0)
-
-    node = DistanceClientNode(p1, p2)
+    node = DistanceClientNode()
     rclpy.spin(node)
     rclpy.shutdown()
 

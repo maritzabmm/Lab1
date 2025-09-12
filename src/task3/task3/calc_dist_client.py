@@ -29,7 +29,7 @@ class DistanceClientNode(Node):
             response = future.result()
             self.get_logger().info(
                 f'Result: Distance between ({p1.x},{p1.y}) and ({p2.x},{p2.y}) is {response.d} \n Success: {response.is_success}, {response.msg}'
-            )
+                )
         except Exception as e:
             self.get_logger().info(f'Service call failed {e}')
 
@@ -39,17 +39,17 @@ def main(args=None):
 
     # Reading numbers from command line
 
-    if len(sys.argv) < 5:
+    if len(sys.argv) == 5:
         print("Please try again with the following format - client x1 y1 x2 y2")
         rclpy.shutdown()
         return
 
     try:
-        x1, y1, x2, y2 = map(float, sys.argv[1:5])
+        x1, y1, x2, y2 = sys.argv[1:5]
     except ValueError:
-        print("Error! Try again with numbers (float).")
-        rclpy.shutdown()
-        return
+         print("Error! Try again with numbers (float).")
+         rclpy.shutdown()
+         return
 
     p1 = Point(x=x1, y=y1, z=0.0)
     p2 = Point(x=x2, y=y2, z=0.0)
