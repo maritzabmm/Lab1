@@ -21,6 +21,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/AddThreeInts.srv"
   "srv/CalculateDistance.srv"
   "action/Fibonacci.action"
+  "action/Countdown.action"
   DEPENDENCIES geometry_msgs action_msgs # Add packages that above messages depend on, in this case geometry_msgs for Sphere.msg
 )
 
