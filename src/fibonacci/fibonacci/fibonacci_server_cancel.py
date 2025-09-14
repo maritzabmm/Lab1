@@ -45,7 +45,7 @@ class FibonacciServerNode(Node):
                 goal_handle.canceled() 
                 self.get_logger().info('Action canceled') # TODO: Filled with a mesage for the cancellation 
 
-                result = Fibonacci.Result()
+                return Fibonacci.Result()
 
             feedback_msg.partial_sequence.append(feedback_msg.partial_sequence[i] + feedback_msg.partial_sequence[i - 1])
             
