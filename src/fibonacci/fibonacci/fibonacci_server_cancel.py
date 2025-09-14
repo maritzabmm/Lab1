@@ -8,7 +8,7 @@ import time
 
 class FibonacciServerNode(Node):
     def __init__(self):
-        super().__init__('fibonacci_server_node') #TODO maybe is necessary to also update name with cancel term, same for class
+        super().__init__('fibonacci_server_node')
         
         self.action_server_ = ActionServer(
             self,
@@ -43,7 +43,7 @@ class FibonacciServerNode(Node):
             
             if goal_handle.is_cancel_requested: 
                 goal_handle.canceled() 
-                self.get_logger().info('Action canceled') # TODO: Filled with a mesage for the cancellation 
+                self.get_logger().info('Action canceled')
 
                 return Fibonacci.Result()
 

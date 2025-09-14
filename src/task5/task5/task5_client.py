@@ -15,8 +15,6 @@ class Task5ClientNode(Node):
         )
 
         # get goal parameter value 
-        self.start_from = 5 # TODO fill 
-
         self.declare_parameter('start_from', 5) # default 5 
         self.start_from = self.get_parameter('start_from').value 
 

@@ -17,8 +17,12 @@ class CountdownCancelClientNode(Node):
         )
 
         # get goal parameter value 
-        # TODO: declare and set ROS parameter varlue for countdown start_from 
-        self.start_from = 5 # TODO fill 
+        self.declare_parameter('start_from', 5) # default 5 
+        self.start_from = self.get_parameter('start_from').value 
+
+        # get time to cancel parameter value
+        self.declare_parameter('time_to_cancel', 2.0) # default 2.0 seconds
+        self.time_to_cancel = self.get_parameter('time_to_cancel').value 
 
         self.get_logger().info('Countdown action client has been started')
 
@@ -52,8 +56,10 @@ class CountdownCancelClientNode(Node):
         self._goal_handle = goal_handle 
         self.get_logger().info('Goal accepted :)')
 
-        # Start a 2 second timer 
-        self._timer = self.create_timer(2.0, self.timer_cancel_goal_callback) # TODO: add time for when to cancel, consider the timing from the server 
+        #Only cancel the request if time to cancel is greater than 0
+        if self.time_to_cancel > 0.0 and self.start_from > self.time_to_cancel:
+            # Start a timer for the cancel request
+            self._timer = self.create_timer(self.time_to_cancel, self.timer_cancel_goal_callback)
 
     def timer_cancel_goal_callback(self):
         """ sends cancel goal async request """
