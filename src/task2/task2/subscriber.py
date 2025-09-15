@@ -34,6 +34,7 @@ class MinimalSubscriber(Node):
         time_diff = 0.0
         if self.last_time is not None:
             curr = msg.time.stamp
+            # AI to verify the formula for the time difference in which nanoseconds are needed to know the exact time gap between the actual and previous message
             time_diff = (curr.sec + curr.nanosec * 1e-9) - (self.last_time.sec + self.last_time.nanosec * 1e-9)
 
         self.last_time = msg.time.stamp
