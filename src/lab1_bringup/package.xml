@@ -10,7 +10,7 @@
   <depend>rclpy</depend>
 
   <!-- launch packages dependencies-->
-  <exec_depend>task3</exec_depend>
+  <exec_depend>task4</exec_depend>
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
 

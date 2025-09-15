@@ -9,7 +9,7 @@ def generate_launch_description():
 
     first_node = Node(
 
-        package = 'task3',     # package name
+        package = 'task4',     # package name
 
         executable = 'service',  # node's executable name
 
@@ -20,21 +20,21 @@ def generate_launch_description():
         # OR
         # arguments=['--ros-args', '--log-level', 'simple_publisher:=WARN']
 
-        # parameters = [{'x1': 1.0,
-        #             'y1': 1.0,
-        #             'x2': 2.0,
-        #             'y2': 2.0}]  # declare parameters of the node <parameter_name> <default value>
-                                        # (if the value is not string, omit quotes
+          # declare parameters of the node <parameter_name> <default value> (if the value is not string, omit quotes
     )
 
     second_node = Node(
         ## same structure
-        package = 'task3',     # package name
+        package = 'task4',     # package name
 
         executable = 'client',  # node's executable name
 
         output = 'screen', # log = redirects the output to a log file based on log level,
                     # screen = Explicitly prints subscriber output to the terminal
+        parameters = [{'x1': 1.0,
+                    'y1': 4.0,
+                    'x2': 6.0,
+                    'y2': 9.0}]
     )
 
     # add as much nodes needed for your application

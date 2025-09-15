@@ -1,0 +1,6 @@
+distance_client_node:
+  ros__parameters:
+    x1: 1.0
+    y1: 4.0
+    x2: 6.0
+    y2: 9.0
