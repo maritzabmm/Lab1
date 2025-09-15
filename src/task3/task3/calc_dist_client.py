@@ -39,7 +39,7 @@ def main(args=None):
 
     # Reading numbers from command line
 
-    if len(sys.argv) == 5:
+    if len(sys.argv) == 5: #TODO i think that should be != 5
         print("Please try again with the following format - client x1 y1 x2 y2")
         rclpy.shutdown()
         return
