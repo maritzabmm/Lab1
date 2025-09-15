@@ -2,7 +2,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy, HistoryPolicy
-from geometry_msgs.msg import PoseStamped, Point, Quaternion
+from geometry_msgs.msg import PoseStamped, Point
 
 class MinimalPublisher(Node):
 
@@ -31,7 +31,7 @@ class MinimalPublisher(Node):
         self.y = 0.0
         self.z = 0.0
         
-        # Updating
+        # For updating values, only direction in x
         self.xrate = 1.0
         self.yrate = 0.0
         self.zrate = 0.0
@@ -40,10 +40,10 @@ class MinimalPublisher(Node):
     def timer_callback(self):
         msg = PoseStamped() 
         msg.pose.position = Point(x=self.x, y=self.y, z=self.z)
-        msg.pose.orientation = Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)
         self.publisher_.publish(msg)
         self.get_logger().info(f'Position: {msg.pose.position}')
         
+        # AI to declare formula, combining the time with rate
         self.x += self.xrate * self.timer_period
         self.y += self.yrate * self.timer_period
         self.z += self.zrate * self.timer_period

@@ -18,6 +18,7 @@ class DistanceClientNode(Node):
                 ('y2', 1.0),
             ])
         
+        # AI used to investigate how and when to use get_parameters after the declaration of the same parameters
         x1 = self.get_parameter('x1').value
         y1 = self.get_parameter('y1').value
         x2 = self.get_parameter('x2').value

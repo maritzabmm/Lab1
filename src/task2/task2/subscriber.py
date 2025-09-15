@@ -29,7 +29,7 @@ class MinimalSubscriber(Node):
 
 
     def listener_callback(self, msg):
-        self.get_logger().info(f'Received at {msg.time.stamp.sec}: \n' 
+        self.get_logger().info(f'Received at {msg.time.stamp.sec}.{msg.time.stamp.nanosec}: \n' 
                                f'{msg.name} is {msg.age} years old. Student? {msg.is_student}')
 
 def main(args=None):

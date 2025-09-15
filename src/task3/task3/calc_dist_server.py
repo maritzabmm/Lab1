@@ -2,7 +2,7 @@ from custom_interface.srv import CalculateDistance
 import rclpy
 from rclpy.node import Node
 import math
-from geometry_msgs.msg import PoseStamped, Point, Quaternion
+from geometry_msgs.msg import PoseStamped, Point
 
 class DistanceServerNode(Node):
 

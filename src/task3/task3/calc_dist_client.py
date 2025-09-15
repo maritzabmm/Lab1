@@ -38,7 +38,7 @@ def main(args=None):
     rclpy.init(args=args)
 
     # Reading numbers from command line
-
+    # AI implemented to separate the values from command line (use of sys) and use them in the service.
     if len(sys.argv) == 5:
         print("Please try again with the following format - client x1 y1 x2 y2")
         rclpy.shutdown()
