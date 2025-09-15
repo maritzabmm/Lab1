@@ -10,7 +10,7 @@ class MinimalSubscriber(Node):
 
     def __init__(self):
         super().__init__('subscriber')
-        topic_name = '/practice2' # TO DO: # subscribe to the publisher’s topic.
+        topic_name = '/practice2' 
         
         self.qos_profile = QoSProfile(
             reliability=ReliabilityPolicy.RELIABLE,         # Ensure delivery of messages
@@ -27,9 +27,19 @@ class MinimalSubscriber(Node):
         
         self.subscription
 
+        self.last_time = None
+
 
     def listener_callback(self, msg):
+        time_diff = 0.0
+        if self.last_time is not None:
+            curr = msg.time.stamp
+            time_diff = (curr.sec + curr.nanosec * 1e-9) - (self.last_time.sec + self.last_time.nanosec * 1e-9)
+
+        self.last_time = msg.time.stamp
+
         self.get_logger().info(f'Received at {msg.time.stamp.sec}.{msg.time.stamp.nanosec}: \n' 
+                               f'Time difference between actual and last message: {time_diff} \n'
                                f'{msg.name} is {msg.age} years old. Student? {msg.is_student}')
 
 def main(args=None):

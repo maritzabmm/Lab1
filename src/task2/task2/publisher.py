@@ -30,14 +30,14 @@ class MinimalPublisher(Node):
                                         self.timer_callback)
 
         self.i = 1
+        self.last_time = None
 
 
     def timer_callback(self):
         msg = Person()
         msg.time = Header()
-        times = []
         msg.time.stamp = self.get_clock().now().to_msg()
-        times.append(msg.time.stamp.sec)
+
         msg.name = "Susannah"
         msg.age = random.randint(1, 99)
         if msg.age <= 18 and msg.age >= 10:
