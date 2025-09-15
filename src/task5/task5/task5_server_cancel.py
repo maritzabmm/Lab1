@@ -1,23 +1,23 @@
 import rclpy 
 from rclpy.node import Node 
-from custom_interface.action import Fibonacci 
+from custom_interface.action import Countdown 
 from rclpy.action import ActionServer 
 from rclpy.action import CancelResponse 
 from rclpy.executors import MultiThreadedExecutor, SingleThreadedExecutor 
 import time 
 
-class FibonacciServerNode(Node):
+class CountdownServerNode(Node):
     def __init__(self):
-        super().__init__('fibonacci_server_node')
+        super().__init__('countdown_server_node')
         
         self.action_server_ = ActionServer(
             self,
-            Fibonacci,
-            'fibonacci_action',
+            Countdown,
+            'countdown_action',
             execute_callback=self.execute_callback,
             cancel_callback=self.cancel_callback)
         
-        self.get_logger().info('Fibonacci Action Server has been started.')
+        self.get_logger().info('Countdown Action Server has been started.')
 
     def cancel_callback(self, cancel_request): 
         """accepts or rejects a client request to cancel""" 
@@ -27,45 +27,48 @@ class FibonacciServerNode(Node):
 
     def execute_callback(self, goal_handle):
         """execute the action and return the result""" 
-        self.get_logger().info(f'Executing the goal {goal_handle.goal_id.uuid}')  #TODO should the message include {goal_handle.goal_id.uuid}') 
+        self.get_logger().info(f'Executing the goal {goal_handle.goal_id.uuid}')
 
         # Get goal request value
-        order = goal_handle.request.order
+        start_from = goal_handle.request.start_from
+
+        #log to review start from
+        self.get_logger().info(f'start_from: {start_from}')
 
         # Initialize feedback
-        feedback_msg = Fibonacci.Feedback()
-        feedback_msg.partial_sequence = [0, 1]
+        feedback_msg = Countdown.Feedback()
+        feedback_msg.current = start_from
 
-        # Process Fibonacci
-        for i in range(1, order):
-
+        # Process countdown
+        for i in range(start_from, 0, -1):
+            
             self.get_logger().info(str(goal_handle.is_cancel_requested))
             
             if goal_handle.is_cancel_requested: 
                 goal_handle.canceled() 
-                self.get_logger().info('Action canceled')
+                self.get_logger().info('Action canceled') 
 
-                return Fibonacci.Result()
+                return Countdown.Result()
 
-            feedback_msg.partial_sequence.append(feedback_msg.partial_sequence[i] + feedback_msg.partial_sequence[i - 1])
+            feedback_msg.current = i
+
+            self.get_logger().info(f'Feedback: {feedback_msg.current}')
             
-            self.get_logger().info(f'Feedback: {feedback_msg.partial_sequence}')
-
             goal_handle.publish_feedback(feedback_msg)
-            time.sleep(1.0)  # Simulate time-consuming task (delay in seconds)
-
+            time.sleep(1.0)  
+        
         # Set goal state as succeeded
         goal_handle.succeed()
 
         # Return the result
-        result = Fibonacci.Result()
-        result.result_sequence = feedback_msg.partial_sequence
+        result = Countdown.Result()
+        result.result_text = "Countdown completed!"
                
         return result
     
 def main(args=None):
     rclpy.init(args=args)
-    node = FibonacciServerNode()
+    node = CountdownServerNode()
 
     executor = MultiThreadedExecutor() 
     executor.add_node(node)

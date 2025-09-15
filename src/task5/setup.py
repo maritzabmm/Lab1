@@ -22,6 +22,8 @@ setup(
         'console_scripts': [
             'task5_server = task5.task5_server:main',
             'task5_client = task5.task5_client:main',
+            'task5_server_cancel = task5.task5_server_cancel:main',
+            'task5_client_cancel = task5.task5_client_cancel:main',
         ],
     },
 )
